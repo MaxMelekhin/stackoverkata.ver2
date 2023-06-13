@@ -1,8 +1,10 @@
 package com.javamentor.qa.platform.dao.impl.dto;
 
 import com.javamentor.qa.platform.dao.abstracts.dto.UserDtoDao;
+import com.javamentor.qa.platform.dao.impl.repository.PageDtoDaoImpl;
 import com.javamentor.qa.platform.dao.impl.repository.ReadWriteDaoImpl;
 import com.javamentor.qa.platform.models.dto.UserDto;
+import com.javamentor.qa.platform.models.entity.user.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public class UserDtoDaoImpl extends ReadWriteDaoImpl<UserDto, Long> implements UserDtoDao {
+public class UserDtoDaoImpl extends PageDtoDaoImpl<User, UserDto> implements UserDtoDao {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -42,5 +44,11 @@ public class UserDtoDaoImpl extends ReadWriteDaoImpl<UserDto, Long> implements U
         } catch (NoResultException e) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public UserDto convertToDto(User user) {
+        UserDto userDto = getById(user.getId()).get();
+        return userDto;
     }
 }
