@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 public class AnswerDtoServiceImpl implements AnswerDtoService {
 
     private final AnswerDtoDao answerDtoDao;
@@ -19,6 +18,7 @@ public class AnswerDtoServiceImpl implements AnswerDtoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<AnswerDto> getAllAnswersDtoByQuestionId(Long questionId, Long userId) {
         return answerDtoDao.getAllAnswersDtoByQuestionId(questionId, userId);
     }
