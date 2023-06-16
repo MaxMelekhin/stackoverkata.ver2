@@ -9,15 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CommentAnswerDtoServiceImpl implements CommentAnswerDtoService {
 
-private CommentAnswerDtoDao commentAnswerDtoDao;
+    private final CommentAnswerDtoDao commentAnswerDtoDao;
 
-public CommentAnswerDtoServiceImpl(CommentAnswerDtoDao commentAnswerDtoDao) {
-    this.commentAnswerDtoDao = commentAnswerDtoDao;
-}
+    public CommentAnswerDtoServiceImpl(CommentAnswerDtoDao commentAnswerDtoDao) {
+        this.commentAnswerDtoDao = commentAnswerDtoDao;
+    }
 
-@Override
-@Transactional(readOnly = true)
-public CommentAnswerDto getCommentAnswerDtoByAnswerIdAndCommentId(long answerId, long commentId) {
-    return commentAnswerDtoDao.getCommentAnswerDtoByAnswerIdAndCommentId(answerId, commentId);
-}
+    @Override
+    @Transactional(readOnly = true)
+    public CommentAnswerDto getCommentAnswerDtoByAnswerIdAndCommentId(long answerId, long commentId) {
+        return commentAnswerDtoDao.getCommentAnswerDtoByAnswerIdAndCommentId(answerId, commentId);
+    }
 }
