@@ -17,7 +17,8 @@ public class AnswerDtoDaoImpl implements AnswerDtoDao {
     @Override
     public List<AnswerDto> getAllAnswersDtoByQuestionId(Long questionId, Long userId) {
         return entityManager.createQuery("""
-                SELECT a.id as answerId,
+                SELECT
+                a.id as answerId,
                 a.user.id as userId,
                 a.question.id as questionId,
                 a.htmlBody as answerText,
@@ -35,7 +36,16 @@ public class AnswerDtoDaoImpl implements AnswerDtoDao {
                 (SELECT COALESCE(va.voteType, null)
                 FROM VoteAnswer va WHERE va.answer.id = a.id AND va.user.id =:userId) as voteType
                 FROM Answer a WHERE a.question.id = :questionId AND a.isDeleted = FALSE
-                GROUP BY a.id, a.user.id, a.question.id, a.htmlBody, a.persistDateTime, a.isHelpful, a.dateAcceptTime, a.user.imageLink, a.user.nickname
+                GROUP BY
+                a.id,
+                a.user.id,
+                a.question.id,
+                a.htmlBody,
+                a.persistDateTime,
+                a.isHelpful,
+                a.dateAcceptTime,
+                a.user.imageLink,
+                a.user.nickname
                 """, AnswerDto.class)
                 .setParameter("questionId", questionId)
                 .setParameter("userId", userId)
