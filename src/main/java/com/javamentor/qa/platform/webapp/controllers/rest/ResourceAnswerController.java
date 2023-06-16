@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,7 +55,7 @@ public class ResourceAnswerController {
         this.commentAnswerService = commentAnswerService;
     }
 
-    @ApiOperation(value = "Добавление комметария к ответу")
+    @ApiOperation(value = "Добавление комментария к ответу")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = CommentAnswerDto.class),
             @ApiResponse(code = 404, message = "Ответ по заданному id не был найден")})
