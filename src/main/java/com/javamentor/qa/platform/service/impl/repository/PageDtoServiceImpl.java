@@ -2,23 +2,24 @@ package com.javamentor.qa.platform.service.impl.repository;
 
 import com.javamentor.qa.platform.dao.abstracts.repository.PageDtoDao;
 import java.util.List;
+import java.util.Map;
 
-public abstract class PageDtoServiceImpl<T, D> {
+public abstract class PageDtoServiceImpl<E, D> {
 
-    private final PageDtoDao<T, D> pageDtoDao;
+    private final PageDtoDao<E, D> pageDtoDao;
 
-    public PageDtoServiceImpl(PageDtoDao<T, D> pageDtoDao) {
+    public PageDtoServiceImpl(PageDtoDao<E, D> pageDtoDao) {
         this.pageDtoDao = pageDtoDao;
     }
 
-    public abstract D convertToDto(T entity);
+    public abstract D convertToDto(E entity);
 
-    public List<D> getItems(Class<T> entityClass, String parameterName, Object parameterValue, int pageSize, int pageNumber) {
-       return pageDtoDao.getItems(entityClass, parameterName, parameterValue, pageSize, pageNumber);
+    public List<D> getItems(Map<String, Object> parameters) throws Exception {
+        return pageDtoDao.getItems(parameters);
     }
 
-    public Long getTotalResultCount(Class<T> entityClass, String parameterName, Object parameterValue) {
-        return pageDtoDao.getTotalResultCount(entityClass, parameterName, parameterValue);
+    public Long getTotalResultCount(Map<String, Object> parameters) throws Exception {
+        return pageDtoDao.getTotalResultCount(parameters);
     }
 
 }
