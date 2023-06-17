@@ -2,6 +2,7 @@ package com.javamentor.qa.platform.security;
 
 import com.javamentor.qa.platform.dao.abstracts.model.UserDao;
 import com.javamentor.qa.platform.models.entity.user.User;
+import com.javamentor.qa.platform.security.jwt.JwtUserFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +24,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> userByEmail = userDao.getByEmail(email);
-        return userByEmail.orElseThrow(() -> new UsernameNotFoundException("Не удалось найти такой аккаунт, проверьте правильность введенных данных"));
+
+        if (userByEmail == null){
+            return userByEmail.orElseThrow(() -> new UsernameNotFoundException("Не удалось найти такой аккаунт, проверьте правильность введенных данных"));
+        }
+
+        return JwtUserFactory.create(userByEmail.get());
     }
 }

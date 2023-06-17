@@ -29,5 +29,9 @@ public class AnswerServiceImpl extends ReadWriteServiceImpl<Answer, Long> implem
         return answerDao.getAnswerById(id, userId);
     }
 
+    @Override
+    public Optional<Answer> getByIdAndChecked (Long answerId, Long senderId) {
+        return answerDao.getByIdAndChecked (answerId, senderId);
+    }
 
 }

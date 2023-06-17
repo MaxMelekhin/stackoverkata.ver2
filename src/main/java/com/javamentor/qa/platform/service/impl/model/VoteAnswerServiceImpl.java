@@ -13,14 +13,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import java.util.Optional;
+
 @Service
 public class VoteAnswerServiceImpl extends ReadWriteServiceImpl<VoteAnswer, Long> implements VoteAnswerService {
 
     private final VoteAnswerDao voteAnswerDao;
 
-    public VoteAnswerServiceImpl(ReadWriteDao<VoteAnswer, Long> readWriteDao, VoteAnswerDao voteAnswerDao) {
+    public VoteAnswerServiceImpl(ReadWriteDao<VoteAnswer, Long> readWriteDao,
+                                 VoteAnswerDao voteAnswerDao)
+                                 {
         super(readWriteDao);
         this.voteAnswerDao = voteAnswerDao;
+    }
+
+    @Override
+    public Long getVoteAnswerAmount (Long answerId) {
+        return voteAnswerDao.getVoteAnswerAmount(answerId);
+    }
+
+    public Optional<VoteAnswer> voteAnswerExists (Long answerId, Long senderId) {
+        return voteAnswerDao.voteAnswerExists(answerId, senderId);
     }
 
     @Override

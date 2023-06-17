@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 import javax.persistence.Query;
 import java.util.Optional;
 
@@ -37,4 +40,20 @@ public class AnswerDaoImpl extends ReadWriteDaoImpl<Answer, Long> implements Ans
                 .setParameter("id", id)
                 .setParameter("userId", userId));
     }
+
+    @Override
+    @Transactional
+    public Optional<Answer> getByIdAndChecked (Long answerId, Long senderId) {
+        return SingleResultUtil.getSingleResultOrNull(
+                entityManager.createQuery("""
+                    from Answer a 
+                    where a.id = :answerId
+                    and a.user.id != :senderId
+                    """, Answer.class)
+                .setParameter("answerId", answerId)
+                .setParameter("senderId", senderId));
+    }
+
+
+
 }

@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface ReputationDao extends ReadWriteDao<Reputation, Long> {
 
     Optional<Reputation> getReputationByAnswerIdAndUserId(Long senderId, Long answerId);
+    Optional<Reputation> reputationExists (User sender, Long answerId);
 }

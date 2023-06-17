@@ -9,4 +9,5 @@ public interface AnswerDao extends ReadWriteDao<Answer, Long> {
     void markAnswerAsDeleted(Long id);
 
     Optional<Answer> getAnswerById(Long answerid, Long userId);
+    Optional<Answer> getByIdAndChecked (Long answerId, Long senderId);
 }
